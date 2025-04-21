@@ -14,10 +14,11 @@ spark = SparkSession.builder.appName("Assigment 2 Question 2").getOrCreate()
 #load the data
 input_path = f"hdfs://{hdfs_nn}:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 df = spark.read.option("header", True).csv(input_path)
+df = df.withColumn("Rating", col("Rating").cast(FloatType()))
 
 #finds the best and the worst restaurants for each city for each price range in terms of rating
 df_filtered=df.filter(
-    col("Price Range".isNotNull()) & 
+    col("Price Range").isNotNull() & 
     col("City").isNotNull() & 
     col("Rating").isNotNull()
     )
