@@ -12,7 +12,7 @@ spark = SparkSession.builder.appName("Assigment 2 Question 2").getOrCreate()
 # YOUR CODE GOES BELOW
 
 #load the data
-input_path = f"hdfs://{hdfs_nn}:3000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
+input_path = f"hdfs://{hdfs_nn}:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 df = spark.read.option("header", True).csv(input_path)
 
 #finds the best and the worst restaurants for each city for each price range in terms of rating
@@ -45,5 +45,5 @@ worst_restaurants = df_filtered.join(
 combined_df = best_restaurants.unionByName(worst_restaurants).dropDuplicates()
 
 # Write the result to HDFS
-output_path = f"hdfs://{hdfs_nn}:3000/assignment2/output/question2/"
+output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question2/"
 combined_df.write.mode("overwrite").csv(output_path, header=True)

@@ -11,7 +11,7 @@ spark = SparkSession.builder.appName("Assigment 2 Question 4").getOrCreate()
 # YOUR CODE GOES BELOW
 
 #load the data
-input_path = f"hdfs://{hdfs_nn}:3000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
+input_path = f"hdfs://{hdfs_nn}:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 df = spark.read.option("header", True).csv(input_path)
 
 #counts the number of restaurants by city and cuisine style
@@ -24,5 +24,5 @@ grouped_df = df_filtered.groupBy("City", "Cuisine Style").count()
 result_df = grouped_df.withColumnRenamed("Cuisine Style", "Cuisine").withColumnRenamed("count", "count")
 
 # Write the result to HDFS
-output_path = f"hdfs://{hdfs_nn}:3000/assignment2/output/question4/"
+output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question4/"
 result_df.write.mode("overwrite").csv(output_path, header=True)
