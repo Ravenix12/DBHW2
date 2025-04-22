@@ -25,14 +25,14 @@ df_filtered=df.filter(
     col("Rating").isNotNull()
     )
 
-print(f"\033[32mFiltered DataFrame count: {df_filtered.count()}\033[0m")  # Green for valid data
+#print(f"\033[32mFiltered DataFrame count: {df_filtered.count()}\033[0m")  # Green for valid data
 
 grouped_df = df_filtered.groupBy("City", "Price Range").agg(
     max("Rating").alias("Max Rating"),
     min("Rating").alias("Min Rating")
 )
 
-print(f"\033[32mFiltered DataFrame count: {grouped_df.count()}\033[0m")  # Green for valid data
+#print(f"\033[32mFiltered DataFrame count: {grouped_df.count()}\033[0m")  # Green for valid data
 
 
 best_restaurants = df_filtered.join(
@@ -42,7 +42,7 @@ best_restaurants = df_filtered.join(
     (df_filtered["Rating"] == grouped_df["Max Rating"])
 ).select(df_filtered["*"])
 
-print(f"\033[32mFiltered DataFrame count: {best_restaurants.count()}\033[0m")  # Green for valid data
+#print(f"\033[32mFiltered DataFrame count: {best_restaurants.count()}\033[0m")  # Green for valid data
 
 worst_restaurants = df_filtered.join(
     grouped_df,
@@ -51,7 +51,7 @@ worst_restaurants = df_filtered.join(
     (df_filtered["Rating"] == grouped_df["Min Rating"])
 ).select(df_filtered["*"])
 
-print(f"\033[32mFiltered DataFrame count: {worst_restaurants.count()}\033[0m")  # Green for valid data
+#print(f"\033[32mFiltered DataFrame count: {worst_restaurants.count()}\033[0m")  # Green for valid data
 
 # Combine best and worst restaurants
 combined_df = best_restaurants.unionByName(worst_restaurants).dropDuplicates()

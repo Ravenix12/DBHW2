@@ -19,10 +19,13 @@ df_filtered = df.filter(
     col("City").isNotNull() & 
     col("Cuisine Style").isNotNull()
 )
+print(f"\033[32mFiltered DataFrame count: {df_filtered.count()}\033[0m")  # Green for valid data
 
 grouped_df = df_filtered.groupBy("City", "Cuisine Style").count()
 result_df = grouped_df.withColumnRenamed("Cuisine Style", "Cuisine").withColumnRenamed("count", "count")
+print(f"\033[32mFiltered DataFrame count: {result_df.count()}\033[0m")  # Green for valid data
 
 # Write the result to HDFS
 output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question4/"
 result_df.write.mode("overwrite").csv(output_path, header=True)
+print(f"\033[32mReached here\033[0m")  # Green for valid data
