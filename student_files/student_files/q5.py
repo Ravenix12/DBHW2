@@ -51,8 +51,5 @@ pair_count_df = pair_df.groupBy("actor1", "actor2").count().filter("count >= 2")
 # Join back to original to get full rows with movie_id and title
 result_df = pair_df.join(pair_count_df, on=["actor1", "actor2"], how="inner")
 
-# Write to Parquet
-result_df.write.mode("overwrite").parquet("hdfs://<your-namenode>:9000/assignment2/output/question5/")
-
 output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question5/"
-result_df.write.mode("overwrite").csv(output_path, header=True)
+result_df.write.mode("overwrite").paraquet(output_path, header=True)
