@@ -31,8 +31,7 @@ top_2 = avg_rating_df.orderBy(col("AverageRating").desc()).limit(2).withColumn("
 bottom_2 = avg_rating_df.orderBy(col("AverageRating").asc()).limit(2).withColumn("RatingGroup", lit("Bottom"))
 
 #Combine top and bottom
-result_df = top_2.unionByName(bottom_2)
-
+combined_df = top_2.unionByName(bottom_2)
 
 # Write the result to HDFS
 output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question3/"
