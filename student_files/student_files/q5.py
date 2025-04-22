@@ -5,6 +5,7 @@ from pyspark.sql.types import StringType, ArrayType
 from itertools import combinations
 import json
 from pyspark.sql.functions import udf
+from pyspark.sql.functions import count
 
 
 # you may add more import if you need to
@@ -44,12 +45,12 @@ pair_df = exploded_df.select(
     col("pair")[1].alias("actor2")
 )
 
-from pyspark.sql.functions import count
 
-pair_count_df = pair_df.groupBy("actor1", "actor2").count().filter("count >= 2")
+pair_count_df = pair_df.groupBy("actor1", "actor2").count().filter("count >= 2").select("actor1", "actor2")
 
 # Join back to original to get full rows with movie_id and title
-result_df = pair_df.join(pair_count_df, on=["actor1", "actor2"], how="inner")
+result_df = pair_df.join(pair_count_df, on=["actor1", "actor2"], how="inner").select("movie_id", "title", "actor1", "actor2")
+
 
 output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question5/"
 result_df.write.mode("overwrite").parquet(output_path)
