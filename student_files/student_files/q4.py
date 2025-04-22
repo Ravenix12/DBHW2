@@ -1,5 +1,6 @@
 import sys
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, count
 
 # you may add more import if you need to
 
