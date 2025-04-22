@@ -1,6 +1,7 @@
 import sys
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, avg, max, min, round, desc
+from pyspark.sql.types import FloatType  # Import FloatType
 
 # you may add more import if you need to
 
