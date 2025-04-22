@@ -24,7 +24,7 @@ df_filtered=df.filter(
     col("Rating").isNotNull()
     )
 
-print(f"\033[32mFiltered DataFrame count: {df_count}\033[0m")  # Green for valid data
+print(f"\033[32mFiltered DataFrame count: {df_filtered.count()}\033[0m")  # Green for valid data
 
 grouped_df = df_filtered.groupBy("City", "Price Range").agg(
     max("Rating").alias("Max Rating"),
