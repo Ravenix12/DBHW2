@@ -15,7 +15,7 @@ hdfs_nn = sys.argv[1]
 spark = SparkSession.builder.appName("Assigment 2 Question 5").getOrCreate()
 # YOUR CODE GOES BELOW
 input_path = f"hdfs://{hdfs_nn}:9000/assignment2/part2/input/tmdb_5000_credits.parquet"
-df = spark.read.option("header", True).paraquet(input_path)
+df = spark.read.parquet(input_path)
 
 # UDF to parse 'cast' JSON and return sorted actor pairs
 def extract_pairs(cast_json):
@@ -52,4 +52,4 @@ pair_count_df = pair_df.groupBy("actor1", "actor2").count().filter("count >= 2")
 result_df = pair_df.join(pair_count_df, on=["actor1", "actor2"], how="inner")
 
 output_path = f"hdfs://{hdfs_nn}:9000/assignment2/output/question5/"
-result_df.write.mode("overwrite").paraquet(output_path, header=True)
+result_df.write.mode("overwrite").parquet(output_path)
