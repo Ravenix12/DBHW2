@@ -1,6 +1,7 @@
 import sys
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, avg, max, min, desc
+from pyspark.sql.functions import col, count, avg, max, min, desc, round, lit
+from pyspark.sql.types import FloatType  # Import FloatType
 
 # you may add more import if you need to
 
@@ -14,6 +15,7 @@ spark = SparkSession.builder.appName("Assigment 2 Question 3").getOrCreate()
 #load the data
 input_path = f"hdfs://{hdfs_nn}:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 df = spark.read.option("header", True).csv(input_path)
+df = df.withColumn("Rating", col("Rating").cast(FloatType()))
 
 #extracts the two cities with the highest and lowest average rating per restaurant
 df_filtered = df.filter(
