@@ -39,7 +39,7 @@ best_restaurants = df_filtered.join(
     (df_filtered["City"] == grouped_df["City"]) &
     (df_filtered["Price Range"] == grouped_df["Price Range"]) &
     (df_filtered["Rating"] == grouped_df["Max Rating"])
-)
+).select(df_filtered["*"])
 
 print(f"\033[32mFiltered DataFrame count: {best_restaurants.count()}\033[0m")  # Green for valid data
 
@@ -48,7 +48,7 @@ worst_restaurants = df_filtered.join(
     (df_filtered["City"] == grouped_df["City"]) &
     (df_filtered["Price Range"] == grouped_df["Price Range"]) &
     (df_filtered["Rating"] == grouped_df["Min Rating"])
-)
+).select(df_filtered["*"])
 
 print(f"\033[32mFiltered DataFrame count: {worst_restaurants.count()}\033[0m")  # Green for valid data
 
