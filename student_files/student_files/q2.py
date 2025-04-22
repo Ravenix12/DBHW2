@@ -24,6 +24,8 @@ df_filtered=df.filter(
     col("Rating").isNotNull()
     )
 
+print(f"Filtered DataFrame count: {df_filtered.count()}")
+
 grouped_df = df_filtered.groupBy("City", "Price Range").agg(
     max("Rating").alias("Max Rating"),
     min("Rating").alias("Min Rating")
